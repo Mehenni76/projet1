@@ -1,6 +1,7 @@
 package fr.eql.projet01.springSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		
-		http.csrf().disable().cors().and()
+		http.csrf().disable().cors().configurationSource(configurationSource()).and()
 		.authorizeRequests()
 		.antMatchers("/", "/index.html", "/**/*.css", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.css", "/**/*.js", "/home", "/inscription", "/traitement-inscription", "/about").permitAll()
 		.antMatchers("/session-end").permitAll()
@@ -57,4 +61,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.exceptionHandling().accessDeniedHandler(accessDeniedHandler);		
 	}
+	
+	private CorsConfigurationSource configurationSource() {
+	      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	      CorsConfiguration config = new CorsConfiguration();
+	      config.addAllowedOrigin("*");
+	      config.setAllowCredentials(true);
+	      config.addAllowedHeader("X-Requested-With");
+	      config.addAllowedHeader("Content-Type");
+	      config.addAllowedMethod(HttpMethod.GET);
+	      source.registerCorsConfiguration("/**", config);
+	      return source;
+	    }
+	 }
 }
