@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import fr.eql.projet01.entity.Support;
 import fr.eql.projet01.exception.AecResourceException;
@@ -41,9 +40,9 @@ public class SupportRestController {
 	private AnnonceService annonceService;
 	@Autowired
 	private PublicationService publicationService;
-	
+
 	protected final Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@GetMapping("/simpleListe")
 	public List<Support> getAll() {
 		return supportService.findAll();
@@ -59,7 +58,7 @@ public class SupportRestController {
 		Support result;
 		try {
 			result = supportService.findOne(id);
-	} catch (ResourceNotFoundException e) {
+		} catch (ResourceNotFoundException e) {
 			return new ResponseEntity<Object>(e.getMessage(),HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			return new ResponseEntity<Object>(e.getMessage(),HttpStatus.BAD_REQUEST);

@@ -1,7 +1,6 @@
 package fr.eql.projet01.entity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

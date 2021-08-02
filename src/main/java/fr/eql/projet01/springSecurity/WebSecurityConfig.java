@@ -13,9 +13,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-//@Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)//necessary for @PreAuthorize("hasRole('ADMIN or ...')")
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)//necessary for @PreAuthorize("hasRole('ADMIN or ...')")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -48,8 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/chat-api-rest/**").permitAll()
 		.antMatchers("/administrateur/**").permitAll()
 		//.antMatchers("http://ksarrajadmin.s3-website.us-east-2.amazonaws.com/**/**").hasAnyRole("ADMIN")
-		.antMatchers("/user/**").permitAll()
-		//.hasAnyRole("USER")
+		.antMatchers("/user/**").hasAnyRole("USER")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
