@@ -32,7 +32,7 @@ import fr.eql.projet01.service.SupportService;
 import fr.eql.projet01.service.UtilisateurService;
 
 @RestController
-@CrossOrigin (origins = { "http://ksarrajadmin.s3-website.us-east-2.amazonaws.com/"}) 
+@CrossOrigin (origins = "*", maxAge=3600) 
 @RequestMapping(value = "/administrateur", headers = "Accept=application/json")
 public class AdministrateurController {
 
@@ -49,6 +49,7 @@ public class AdministrateurController {
 	
 	// Ici l'admin peut voir tous les utilisateurs inscrits
 	//http://localhost:8085/administrateur/users
+	@CrossOrigin (origins = "*", maxAge=3600) 
 	@GetMapping("/users")
 	public List<Utilisateur> getUsers() {
 		List<Utilisateur> utilisateurs = null;
