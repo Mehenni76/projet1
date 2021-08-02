@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice(basePackages = {"com.bnguimgo.springbootrestserver"} )
+//@ControllerAdvice(basePackages = {"com.bnguimgo.springbootrestserver"} )
 public class GlobalHandlerControllerException extends ResponseEntityExceptionHandler{
 
 	@InitBinder
