@@ -49,7 +49,6 @@ public class AdministrateurController {
 	
 	// Ici l'admin peut voir tous les utilisateurs inscrits
 	//http://localhost:8085/administrateur/users
-	@CrossOrigin (origins = "*", maxAge=3600) 
 	@GetMapping("/users")
 	public List<Utilisateur> getUsers() {
 		List<Utilisateur> utilisateurs = null;
