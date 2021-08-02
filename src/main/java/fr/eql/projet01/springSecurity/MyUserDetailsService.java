@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import fr.eql.projet01.entity.Utilisateur;
 import fr.eql.projet01.service.UtilisateurService;
 
-@Service
+//@Service
 public class MyUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UtilisateurService utilisateurService;
