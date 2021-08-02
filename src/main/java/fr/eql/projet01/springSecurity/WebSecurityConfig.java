@@ -1,7 +1,6 @@
 package fr.eql.projet01.springSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -34,11 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// roles user allow to access /user/**
 	// custom 403 access denied handler
 
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		
-		http.csrf().disable().cors().configurationSource(configurationSource()).and()
+		http.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/", "/index.html", "/**/*.css", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.css", "/**/*.js", "/home", "/inscription", "/traitement-inscription", "/about").permitAll()
 		.antMatchers("/session-end").permitAll()
@@ -47,7 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/aec-api-rest/themes/**").permitAll()
 		.antMatchers("/chat-api-rest/**").permitAll()
 		.antMatchers("/administrateur/**").permitAll()
-		//.antMatchers("http://ksarrajadmin.s3-website.us-east-2.amazonaws.com/**/**").hasAnyRole("ADMIN")
+		.antMatchers("http://ec2-18-224-179-88.us-east-2.compute.amazonaws.com:8090/**/**").permitAll()
+		.antMatchers("http://localhost:4300/**/**").hasAnyRole("USER")
+		.antMatchers("http://18.224.51.251:8080/aec-api-rest/**/**").hasAnyRole("ADMIN")
+		.antMatchers("http://18.224.51.251:8080/aec-api-rest/**/**").hasAnyRole("USER")
+		.antMatchers("http://myadminstratorapplication.s3-website.us-east-2.amazonaws.com/**/**").hasAnyRole("ADMIN")
+		.antMatchers("http://ec2-18-224-179-88.us-east-2.compute.amazonaws.com:8090/**/**").hasAnyRole("USER")
+		//.antMatchers("http://localhost:4300/**/**").hasAnyRole("ADMIN")
+		.antMatchers("http://**/**/**").hasAnyRole("ADMIN")
 		.antMatchers("/user/**").hasAnyRole("USER")
 		.anyRequest().authenticated()
 		.and()
@@ -60,17 +62,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.exceptionHandling().accessDeniedHandler(accessDeniedHandler);		
 	}
-	
-	private CorsConfigurationSource configurationSource() {
-	      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	      CorsConfiguration config = new CorsConfiguration();
-	      config.addAllowedOrigin("*");
-	      config.setAllowCredentials(true);
-	      config.addAllowedHeader("X-Requested-With");
-	      config.addAllowedHeader("Content-Type");
-	      config.addAllowedMethod(HttpMethod.GET);
-	      source.registerCorsConfiguration("/**", config);
-	      return source;
-	    }
-	 
 }
