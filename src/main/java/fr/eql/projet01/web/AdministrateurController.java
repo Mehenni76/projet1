@@ -33,7 +33,7 @@ import fr.eql.projet01.service.UtilisateurService;
 
 @RestController
 @CrossOrigin (origins = "*", maxAge=3600) 
-@RequestMapping(value = "/administrateur", headers = "Accept=application/json")
+@RequestMapping(value = "/administrateur")
 public class AdministrateurController {
 
 	@Autowired
