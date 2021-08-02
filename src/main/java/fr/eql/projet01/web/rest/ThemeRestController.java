@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import fr.eql.projet01.entity.Annonce;
 import fr.eql.projet01.entity.Theme;
@@ -33,6 +34,7 @@ import fr.eql.projet01.service.ThemeService;
 import fr.eql.projet01.ui.request.ThemeRequest;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(value="/aec-api-rest/themes", headers="Accept=application/json")
 public class ThemeRestController {
 	@Autowired

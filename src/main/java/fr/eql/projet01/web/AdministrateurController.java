@@ -32,7 +32,7 @@ import fr.eql.projet01.service.SupportService;
 import fr.eql.projet01.service.UtilisateurService;
 
 @RestController
-@CrossOrigin //(origins = "*", maxAge=3600) 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(value = "/administrateur")
 public class AdministrateurController {
 
