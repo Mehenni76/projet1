@@ -84,32 +84,11 @@ public class AdministrateurController {
 
 	// Ici l'admin peut voir tous les publications d'un utilisateur à l'aide de son
 	// http://localhost:8085/administrateur/publications/1
-	@GetMapping("/publications/{id}")
-	public List<Publication> AffichePublications(@PathVariable("id") Long id) {
-		List<Utilisateur> listUtilisateur = new ArrayList<Utilisateur>();
-		List<Publication> listPublication = new ArrayList<Publication>();
-		try {
-			Utilisateur uti = utilisateurService.findOne(id);
-			List<Abonnement> listeAbo = aboService.findAllFollowerByUtilisateur(uti);
+	  @GetMapping("/publication/{id}")
+	    public Publication AffichePublication(@PathVariable("id") Long id) {
+	        return publicationService.findById(id);
 
-			for (Abonnement abo : listeAbo) {
-				Utilisateur a = abo.getFollowing();
-				listUtilisateur.add(a);
-			}
-			for (Utilisateur u : listUtilisateur) {
-				List<Publication> p = u.getListPublication();
-				for (Publication m : p) {
-					List<Support> listSupport = supportService.findSupportByPublication(m);
-					m.setSupport(listSupport);
-				}
-				listPublication.addAll(p);
-			}
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return listPublication;
-
-	}
+	    }
 
 	// Ici l'admin peut voir tous les abonnées d'un utilisateur à l'aide de son id
 	//http://localhost:8085/administrateur/Abonnees/1
