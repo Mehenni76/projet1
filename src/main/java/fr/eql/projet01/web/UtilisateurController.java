@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eql.projet01.entity.Utilisateur;
+import fr.eql.projet01.service.DroitsService;
 import fr.eql.projet01.service.SexeService;
 import fr.eql.projet01.service.UtilisateurService;
 import fr.eql.projet01.service.VilleService;
-import fr.eql.projet01.service.DroitsService;
 
 @Controller
 public class UtilisateurController {
@@ -33,10 +33,10 @@ public class UtilisateurController {
 
 	@Autowired
 	private SexeService sexeService;
-	
+
 	@Autowired
 	private DroitsService droitsService;
-	
+
 	@Autowired
 	private VilleService villeService;
 
@@ -74,7 +74,7 @@ public class UtilisateurController {
 
 	@PostMapping("/sauvegardeUti")
 	public String SauvegardeUti(Model model, @ModelAttribute("utilisateur") Utilisateur uti) {	
-		
+
 		System.out.println(uti.toString());
 		model.addAttribute("utilisateur", utilisateurService.save(uti));
 		return "profil";
@@ -123,6 +123,7 @@ public class UtilisateurController {
 				utilisateur.setSexe(sexeService.findOne(idsexe));
 				utilisateur.setVille(villeService.findOne(idville));
 				utilisateur.setPasseWord(password);
+				utilisateurService.save(utilisateur);
 				redirect = "home";
 			} catch (Exception e) {
 				model.addAttribute("message", "Oups, quelque chose c'est mal passé ! :-)");

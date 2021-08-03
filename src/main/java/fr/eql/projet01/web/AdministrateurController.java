@@ -1,6 +1,5 @@
 package fr.eql.projet01.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.eql.projet01.entity.Abonnement;
 import fr.eql.projet01.entity.Annonce;
 import fr.eql.projet01.entity.Publication;
-import fr.eql.projet01.entity.Support;
 import fr.eql.projet01.entity.Utilisateur;
 import fr.eql.projet01.exception.AecResourceException;
 import fr.eql.projet01.exception.IllegalOperationException;
@@ -46,7 +44,7 @@ public class AdministrateurController {
 	private AbonnementService aboService;
 	@Autowired
 	private SupportService supportService;
-	
+
 	// Ici l'admin peut voir tous les utilisateurs inscrits
 	//http://localhost:8085/administrateur/users
 	@GetMapping("/users")
@@ -65,13 +63,13 @@ public class AdministrateurController {
 	}
 
 
-//
-//	@RequestMapping(path = "/deletePublications/{id}", method = RequestMethod.DELETE)
-//	public void deletePublications(@PathVariable(value = "id") Long publicationId) {
-//
-//			Publication publication = publicationService.findById(publicationId);  
-//			publicationService.deleteById(publication.getId());
-//	}
+	//
+	//	@RequestMapping(path = "/deletePublications/{id}", method = RequestMethod.DELETE)
+	//	public void deletePublications(@PathVariable(value = "id") Long publicationId) {
+	//
+	//			Publication publication = publicationService.findById(publicationId);  
+	//			publicationService.deleteById(publication.getId());
+	//	}
 
 	// Ici l'admin peut voir tous les annonces
 	//http://localhost:8085/administrateur/annonces
@@ -84,11 +82,11 @@ public class AdministrateurController {
 
 	// Ici l'admin peut voir tous les publications d'un utilisateur à l'aide de son
 	// http://localhost:8085/administrateur/publications/1
-	  @GetMapping("/publication/{id}")
-	    public Publication AffichePublication(@PathVariable("id") Long id) {
-	        return publicationService.findById(id);
+	@GetMapping("/publication/{id}")
+	public Publication AffichePublication(@PathVariable("id") Long id) {
+		return publicationService.findById(id);
 
-	    }
+	}
 
 	// Ici l'admin peut voir tous les abonnées d'un utilisateur à l'aide de son id
 	//http://localhost:8085/administrateur/Abonnees/1

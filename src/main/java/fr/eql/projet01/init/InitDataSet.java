@@ -1,4 +1,4 @@
-package fr.eql.projet01.init;
+/*package fr.eql.projet01.init;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -466,4 +466,4 @@ public class InitDataSet {
 		s.setAnnonceSupport(a);
 		supportRepository.save(s);
 	}
-}
+}*/

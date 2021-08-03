@@ -19,7 +19,6 @@ import org.springframework.util.Assert;
 
 import fr.eql.projet01.dao.DroitsRepository;
 import fr.eql.projet01.dao.UtilisateurRepository;
-import fr.eql.projet01.entity.Droits;
 import fr.eql.projet01.entity.Utilisateur;
 import fr.eql.projet01.exception.AecResourceException;
 import fr.eql.projet01.exception.NotValidObjectException;
@@ -83,10 +82,11 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 		if(utilisateur.getId() != null) {
 			Utilisateur utilisateurFromDB = this.findOne(utilisateur.getId());
 			utilisateur.setDateInscription(utilisateurFromDB.getDateInscription());
+			utilisateur.setDateNais(utilisateurFromDB.getDateNais());
 			if(utilisateur.getDroits() == null)
 				utilisateur.setDroits(utilisateurFromDB.getDroits());
-			
-			if(utilisateur.getPasseWord()==null) {
+
+			if(utilisateur.getPasseWord() == null || utilisateur.getPasseWord().isEmpty()) {
 				utilisateur.setPasseWord(utilisateurFromDB.getPasseWord()); //Sinon, on remet le password déjà haché
 			} else {
 				utilisateur.setPasseWord(bCryptPasswordEncoder.encode(utilisateur.getPasseWord())); //MAJ du mot de passe s'il a été modifié
@@ -95,7 +95,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 			utilisateur.setDroits(droitsRepository.findByTypeDroit("Utilisateur"));
 			utilisateur.setPasseWord(bCryptPasswordEncoder.encode(utilisateur.getPasseWord()));
 		}
-		
+
 		Set<ConstraintViolation<Utilisateur>> errors = validator.validate(utilisateur);
 		if(errors.size() > 0) {
 			List<String> l = new ArrayList<String>();
@@ -117,15 +117,5 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 	@Override
 	public long count() {
 		return utilisateurRepository.count();
-	}
-
-	private void addUtilisateurDroit(Utilisateur utilisateur) {
-		Droits droitUtilisateur = new Droits("ROLE_UTILISATEUR");//initialisation du rôle ROLE_USER
-		utilisateur.setDroits(droitUtilisateur);
-	}
-
-	private void updateUtilisateurDroit(Utilisateur utilisateur) {
-		Object droitFromDB = droitsRepository.findById(utilisateur.getDroits().getId());
-		utilisateur.setDroits((Droits) droitFromDB);
 	}
 }

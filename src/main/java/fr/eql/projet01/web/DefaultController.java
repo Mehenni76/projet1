@@ -35,18 +35,15 @@ public class DefaultController {
 		Utilisateur uti = null;
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);
-		try {
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if (principal instanceof UserDetails) {
-				String username = ((UserDetails)principal).getUsername();
-				uti = utilisateurService.rechercherUtilisateurParProfil(username);
-				session.setAttribute("utilisateur", uti);
-			}
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			String username = ((UserDetails)principal).getUsername();
+			uti = utilisateurService.rechercherUtilisateurParProfil(username);
+			session.setAttribute("utilisateur", uti);
 			rv.setUrl("/mur?id="+ uti.getId());
-		} catch(Exception e)
-		{
+		} else {
 			rv.setUrl("/home");
-		} 
+		}
 		return rv;
 	}
 
