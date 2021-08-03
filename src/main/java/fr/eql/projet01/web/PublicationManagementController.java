@@ -183,14 +183,14 @@ public class PublicationManagementController {
 		return "EditPublication";
 	}
 
-	@GetMapping("/uploadImageForm/{id}")
-	public String showImageForm(@PathVariable("id") Long id,Model model){
+	@GetMapping("/uploadImageForm")
+	public String showImageForm(Long id,Model model){
 		//productService.findById(id);
 		model.addAttribute("id",id);
 		return "publicationAddImageFrom";    }
 
-	@PostMapping("/upload/{id}")
-	public String uploadFile(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file,Model model, RedirectAttributes redirectAttributes){
+	@PostMapping("/upload")
+	public String uploadFile(Long id, @RequestParam("file") MultipartFile file,Model model, RedirectAttributes redirectAttributes){
 		System.out.println("id = " + id);
 		System.out.println("file.getSize() = "+file.getSize());
 		System.out.println("Image Size KB:" + file.getSize() / 1024);
